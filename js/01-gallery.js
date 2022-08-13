@@ -34,17 +34,23 @@ function onContainerClick(e) {
   }
   const linkEl = e.target;
   const originalURL = linkEl.dataset.source;
-  console.log('originalURL:', originalURL);
+
+  onOpenModal(originalURL);
 }
 
-//
+function onOpenModal(url) {
+  const instance = basicLightbox.create(`
+      <img src=${url}>
+  `);
+  instance.show();
 
-document.querySelector('button.image').onclick = () => {
-  basicLightbox
-    .create(
-      `
-		<img width="1400" height="900" src="https://placehold.it/1400x900">
-	`
-    )
-    .show();
-};
+  window.addEventListener('keydown', onCloseModal);
+
+  function onCloseModal(e) {
+    const key = e.code;
+    if (key === 'Escape') {
+      instance.close();
+      window.removeEventListener('keydown', onCloseModal);
+    }
+  }
+}
