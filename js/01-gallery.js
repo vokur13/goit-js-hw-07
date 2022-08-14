@@ -15,15 +15,39 @@ function createPictureGalleryMarkup(gallery) {
       return `<div class="gallery__item">
         <a class="gallery__link" href="${original}">
         <img
-        class="gallery__image"
-        src="${preview}"
-        data-source="${original}"
+        loading="lazy"
+        class="gallery__image lazyload"
+        data-src="${original}"
         alt="${description}"
         />
         </a>
         </div>`;
     })
     .join('');
+}
+
+if ('loading' in HTMLImageElement.prototype) {
+  onLazySizesLoad();
+} else {
+  // Dynamically import the LazySizes library
+  onLazySizesLibraryAdd();
+}
+
+function onLazySizesLoad() {
+  const lazyImg = document.querySelectorAll('img[loading="lazy"]');
+  lazyImg.forEach(img => {
+    img.src = img.dataset.src;
+  });
+}
+
+function onLazySizesLibraryAdd() {
+  const script = document.createElement('script');
+  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js';
+  script.integrity =
+    'sha512-q583ppKrCRc7N5O0n2nzUiJ+suUv7Et1JGels4bXOaMFQcamPk9HjdUknZuuFjBNs7tsMuadge5k9RzdmO+1GQ==';
+  script.crossOrigin = 'anonymous';
+  script.referrerpolicy = 'no-referrer';
+  document.body.appendChild(script);
 }
 
 function onContainerClick(e) {
@@ -33,7 +57,7 @@ function onContainerClick(e) {
     return;
   }
   const linkEl = e.target;
-  const originalURL = linkEl.dataset.source;
+  const originalURL = linkEl.dataset.src;
 
   onOpenModal(originalURL);
 }
@@ -54,3 +78,16 @@ function onOpenModal(url) {
     }
   }
 }
+
+// Оригинальная разметка
+
+// `<div class="gallery__item">
+//         <a class="gallery__link" href="${original}">
+//         <img
+//         class="gallery__image"
+//         src="${preview}"
+//         data-source="${original}"
+//         alt="${description}"
+//         />
+//         </a>
+//         </div>`;
