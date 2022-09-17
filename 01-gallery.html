@@ -8,17 +8,29 @@
     <link rel="icon" href="data:," />
     <link rel="stylesheet" href="css/common.css" />
     <link rel="stylesheet" href="css/styles.css" />
-    <link
+    <!-- <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/basiclightbox@5.0.4/dist/basicLightbox.min.css"
-    />
+    /> -->
   </head>
   <body>
     <p><a href="index.html">Go back</a></p>
 
-    <!-- Add gallery items to this list -->
     <div class="gallery"></div>
-    <script src="https://cdn.jsdelivr.net/npm/basiclightbox@5.0.4/dist/basicLightbox.min.js"></script>
+
+    <!-- Modal -->
+    <div class="lightbox js-lightbox">
+      <div class="lightbox__overlay"></div>
+
+      <div class="lightbox__content">
+        <img class="lightbox__image" src="" alt="" />
+      </div>
+    </div>
+    <!--  -->
+
+    <!-- Add gallery items to this list -->
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/basiclightbox@5.0.4/dist/basicLightbox.min.js"></script> -->
     <script src="js/01-gallery.js" type="module"></script>
   </body>
 </html>
